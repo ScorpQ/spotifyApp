@@ -6,18 +6,22 @@ import './App.css'
 function App() {
   const [search, setSearch] = useState()
 
+  const handleChange = (parameter) => {
+    setSearch(parameter)
+  }
+
   useEffect(() => {
     const fetchData = async () => {
-      const result = await Spotify.getSearch()
+      const result = await Spotify.getSearch(search)
       console.log(result)
     }
 
     fetchData()
-  }, [])
+  }, [search])
 
   return (
     <div className='App'>
-      <SearchBar />
+      <SearchBar handleChange={handleChange} />
     </div>
   )
 }

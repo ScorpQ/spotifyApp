@@ -26,17 +26,14 @@ const Spotify = {
     }
   },
 
-  getSearch: async () => {
+  getSearch: async (search) => {
     const TOKEN = await Spotify.getToken()
     try {
-      const response = await axios.get(
-        `https://api.spotify.com/v1/search?q=theweekend&type=album%2Cplaylist%2Cartist%2Ctrack%2Cshow%2Cepisode%2Caudiobook`,
-        {
-          headers: {
-            Authorization: `Bearer ${TOKEN}`,
-          },
-        }
-      )
+      const response = await axios.get(`https://api.spotify.com/v1/search?q=${search}&type=track`, {
+        headers: {
+          Authorization: `Bearer ${TOKEN}`,
+        },
+      })
       return response
     } catch (error) {}
   },

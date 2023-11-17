@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react'
 
-function SearchBar() {
-  const [search, setSearch] = useState()
-  const test = () => {
-    console.log('test')
-  }
-
+function SearchBar({ handleChange }) {
   return (
     <div className='SearchBar'>
-      <input type='text' />
+      <input
+        onChange={({ target }) => {
+          handleChange(target.value)
+        }}
+        type='text'
+      />
     </div>
   )
 }
