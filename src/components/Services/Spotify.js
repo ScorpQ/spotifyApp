@@ -1,8 +1,5 @@
 import axios from 'axios';
 
-const clientId = '0121c9754df14f919e4db5a78bece9d0'
-const clientSecret = '8e8c5c6cf9fc49e2ac721426b0cee105'
-
 
 const getSearch = async () => {
   try{

@@ -1,16 +1,19 @@
 import { useState, useEffect } from 'react'
 import SearchBar from '../Searchbar/SearchBar'
 import getData from '../Services/Spotify'
-import token from '../Services/Token'
+import getToken from '../Services/Token'
 import './App.css'
 
 function App() {
 
   useEffect(() => {
+    
     const fetchData = async () => {
-      const result = await token()
+      const result = await getToken()
       console.log(result)
     }
+
+    
     fetchData()
   }, [])
 
