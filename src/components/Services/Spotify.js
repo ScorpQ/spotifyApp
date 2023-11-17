@@ -1,17 +1,45 @@
 import axios from 'axios'
+import { Buffer } from 'buffer'
 
-const getSearch = async () => {
-  try {
-    const response = await axios.get('https://api.spotify.com/v1/artists/4Z8W4fKeB5YxbusRsdQVPb', {
-      headers: {
-        Authorization:
-          'Bearer BQAZ1XOPqrAsNCdDIcwElDMwxOMlTULIq7MhDkyFiibsrCLn0IZdolDOMU4fj3Rp_sVn0f_vGCUHkoWK5w6INNn3ofxYp-qsIUGRJmFO_bjdpU1R6nA',
-      },
-    })
-    return response
-  } catch (error) {
-    console.log(error)
-  }
+const client_id = '0121c9754df14f919e4db5a78bece9d0'
+const client_secret = '8e8c5c6cf9fc49e2ac721426b0cee105'
+const auth_token = Buffer.from(`${client_id}:${client_secret}`, 'utf-8').toString('base64')
+
+const Spotify = {
+  getToken: async () => {
+    try {
+      // make post request to SPOTIFY API for receive the access token
+      const response = await axios.post(
+        'https://accounts.spotify.com/api/token',
+        { grant_type: 'client_credentials' },
+        {
+          headers: {
+            Authorization: `Basic ${auth_token}`,
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+        }
+      )
+
+      return response.data.access_token
+    } catch (error) {
+      console.log(error.message)
+    }
+  },
+
+  getSearch: async () => {
+    const TOKEN = await Spotify.getToken()
+    try {
+      const response = await axios.get(
+        `https://api.spotify.com/v1/search?q=theweekend&type=album%2Cplaylist%2Cartist%2Ctrack%2Cshow%2Cepisode%2Caudiobook`,
+        {
+          headers: {
+            Authorization: `Bearer ${TOKEN}`,
+          },
+        }
+      )
+      return response
+    } catch (error) {}
+  },
 }
 
-export default getSearch
+export default Spotify
