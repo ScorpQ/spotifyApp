@@ -5,18 +5,14 @@ import getToken from '../Services/Token'
 import './App.css'
 
 function App() {
-
   useEffect(() => {
-    
     const fetchData = async () => {
       const result = await getToken()
       console.log(result)
     }
 
-    
     fetchData()
   }, [])
-
 
   return (
     <div className='App'>
