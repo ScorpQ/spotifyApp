@@ -34,7 +34,13 @@ const Spotify = {
           Authorization: `Bearer ${TOKEN}`,
         },
       })
-      return response
+
+      return response.data.tracks.items.map((item) => ({
+        artist: item.artists[0].name,
+        song: item.name,
+        album: item.album.name,
+        id: item.id,
+      }))
     } catch (error) {}
   },
 }

@@ -36,3 +36,26 @@
     transform: rotate(360deg);
   }
 }
+
+/*
+function App() {
+  const [search, setSearch] = useState([])
+
+  useEffect(() => {
+    const searchWord = async (term) => {
+      const searchResults = await Spotify.getSearch(term)
+      setSearch(searchResults)
+      console.log(search)
+    }
+
+    searchWord()
+  }, [search])
+
+  return (
+    <div className='App'>
+      <SearchBar onChange={searchWord} />
+    </div>
+  )
+}
+
+*/
