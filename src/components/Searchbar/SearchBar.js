@@ -5,7 +5,7 @@ function SearchBar(props) {
 
   const handleTermChange = ({ target }) => {
     setTerm(target.value)
-    props.onChange(term)
+    props.onChange(target.value) /* props.onChange içerisine hook verince ilk data okumuyor searchbar'da. */
   }
 
   return (

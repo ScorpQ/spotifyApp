@@ -22,14 +22,14 @@ const Spotify = {
 
       return response.data.access_token
     } catch (error) {
-      console.log(error.message)
+      console.log('veri yok')
     }
   },
 
   getSearch: async (search) => {
     const TOKEN = await Spotify.getToken()
     try {
-      const response = await axios.get(`https://api.spotify.com/v1/search?q=${search}&type=track`, {
+      const response = await axios.get(`https://api.spotify.com/v1/search?q=${search}&type=audiobook%2Ctrack`, {
         headers: {
           Authorization: `Bearer ${TOKEN}`,
         },
@@ -41,7 +41,9 @@ const Spotify = {
         album: item.album.name,
         id: item.id,
       }))
-    } catch (error) {}
+    } catch (error) {
+      console.log('veri yok')
+    }
   },
 }
 
