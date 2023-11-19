@@ -1,22 +1,21 @@
-import { useState, useEffect } from 'react'
-import SearchBar from '../Searchbar'
-import Spotify from '../Services'
-import SearchResult from '../Searchresult'
-
+import { useState, useEffect, useCallback } from 'react'
+import SearchBar from '../Searchbar/SearchBar'
+import Spotify from '../Services/Spotify'
 import './App.css'
+import SearchResult from '../Searchresult/SearchResults'
 
 function App() {
   const [search, setSearch] = useState()
 
-  const handleChange = async (results) => {
-    const result = await Spotify.getSearch(results)
-    setSearch(result)
+  const searchWord = async (term) => {
+    const searchResults = await Spotify.getSearch(term)
+    setSearch(searchResults)
   }
 
   return (
     <div className='App'>
-      <SearchBar handleChange={handleChange} />
-      <SearchResult handleResutls={search} />
+      <SearchBar onChange={searchWord} />
+      <SearchResult onSearch={search} />
     </div>
   )
 }
