@@ -1,13 +1,20 @@
 import { useState, useEffect } from 'react'
 
-function SearchResult() {
+function SearchResult(props) {
   const [search, setSearch] = useState()
 
   return (
     <div className='SearchResult'>
-      <p>sonuc</p>
+      {props.onSearch &&
+        props.onSearch.map((item) => {
+          return (
+            <p>
+              {item.artist} & {item.song}
+            </p>
+          )
+        })}
     </div>
   )
 }
 
-export default SearchBar
+export default SearchResult
