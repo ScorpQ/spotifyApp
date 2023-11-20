@@ -15,6 +15,8 @@ function SearchResult(props) {
   const [search, setSearch] = useState()
   const theme = useTheme()
 
+
+
   return (
     <div className='SearchResult'>
       {props.onSearch &&
@@ -44,9 +46,7 @@ function SearchResult(props) {
               </Box>
               <CardMedia component='img' sx={{ width: 151 }} image={item.image} alt='Live from space album cover' />
               <AddCircleOutlineIcon
-                onClick={() => {
-                  console.log('ehe')
-                }}
+                onClick={ () => { props.onAdd(item) } }
               />
             </Card>
           )
