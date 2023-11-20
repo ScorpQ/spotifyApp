@@ -1,8 +1,9 @@
 import { useState, useEffect, useCallback } from 'react'
-import SearchBar from '../Searchbar/SearchBar'
-import Spotify from '../Services/Spotify'
-import './App.css'
+import SearchBar from '../Searchbar'
+import Spotify from '../Services'
 import SearchResult from '../Searchresult/SearchResults'
+import Playlist from '../Playlist'
+import './App.css'
 
 function App() {
   const [search, setSearch] = useState()
@@ -15,7 +16,9 @@ function App() {
   return (
     <div className='App'>
       <SearchBar onChange={searchWord} />
-      <SearchResult onSearch={search} />
+      <>
+        <SearchResult onSearch={search} />
+      </>
     </div>
   )
 }

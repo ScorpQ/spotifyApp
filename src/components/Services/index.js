@@ -34,10 +34,11 @@ const Spotify = {
           Authorization: `Bearer ${TOKEN}`,
         },
       })
-
+      console.log(response)
       return response.data.tracks.items.map((item) => ({
         artist: item.artists[0].name,
         song: item.name,
+        image: item.album.images[0].url,
         album: item.album.name,
         id: item.id,
       }))
