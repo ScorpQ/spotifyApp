@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react'
 import SearchBar from '../Searchbar'
 import Spotify from '../Services'
 import SearchResult from '../Searchresult/SearchResults'
-import {Playlist} from '../Playlist'
+import { Playlist } from '../Playlist'
 import './App.css'
 
 function App() {
@@ -14,7 +14,7 @@ function App() {
     setSearch(searchResults)
   }
 
-  const onAdd = (item) => {
+  const handleChange = (item) => {
     console.log(item)
   }
 
@@ -22,8 +22,7 @@ function App() {
     <div className='App'>
       <SearchBar onChange={searchWord} />
       <>
-        <SearchResult onSearch={search} onAdd={onAdd} /> 
-        <Playlist handlePlaylistName={'ehe'}  />
+        <SearchResult onSearch={search} onAdd={handleChange} />
       </>
     </div>
   )
