@@ -1,9 +1,9 @@
+import Track from '../Track'
 
-const Tracklist = () => {
-
+const Tracklist = (props) => {
   return (
     <div className='Tracklist'>
-
+      <Track onSearch={props.onSearch} />
     </div>
   )
 }
