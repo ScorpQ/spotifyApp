@@ -9,9 +9,10 @@ function App() {
   const [search, setSearch] = useState()
   const [favTrack, setFavTrack] = useState({})
 
-  // It adds the data coming from SearchBar comp. to API the as a parameter.
+  // It adds the data coming from SearchBar comp. to API the as a parameter. API result used as parameter with state setter func.
   const searchWord = async (term) => {
     const searchResults = await Spotify.getSearch(term)
+    console.log(searchResults)
     setSearch(searchResults)
   }
 
