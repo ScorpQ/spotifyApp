@@ -9,9 +9,15 @@ import SkipPreviousIcon from '@mui/icons-material/SkipPrevious'
 import PlayArrowIcon from '@mui/icons-material/PlayArrow'
 import SkipNextIcon from '@mui/icons-material/SkipNext'
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 
 const Track = (props) => {
   const theme = useTheme()
+  let isAdded = false
+  
+  const renderAction = () => {
+    return (isAdded ? <AddCircleOutlineIcon /> : <RemoveCircleOutlineIcon />)
+  }
 
   return (
     <Card sx={{ display: 'flex' }}>
@@ -37,7 +43,7 @@ const Track = (props) => {
         </Box>
       </Box>
       <CardMedia component='img' sx={{ width: 151 }} image={props.image} alt='Live from space album cover' />
-      <AddCircleOutlineIcon />
+      {renderAction()}
     </Card>
   )
 }
