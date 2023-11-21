@@ -5,7 +5,18 @@ const Tracklist = (props) => {
     <div className='Tracklist'>
       {props.tracks &&
         props.tracks.map((item) => {
-          return <Track onAdd={props.onAdd} artist={item.artist} song={item.song} image={item.image} album={item.album} id={item.id} />
+          return (
+            <Track
+              isAdded={true}
+              item={item}
+              onAdd={props.onAdd}
+              artist={item.artist}
+              song={item.song}
+              image={item.image}
+              album={item.album}
+              id={item.id}
+            />
+          )
         })}
     </div>
   )

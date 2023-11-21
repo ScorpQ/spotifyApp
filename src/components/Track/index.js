@@ -9,14 +9,17 @@ import SkipPreviousIcon from '@mui/icons-material/SkipPrevious'
 import PlayArrowIcon from '@mui/icons-material/PlayArrow'
 import SkipNextIcon from '@mui/icons-material/SkipNext'
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
-import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline'
 
 const Track = (props) => {
   const theme = useTheme()
-  let isAdded = false
-  
+
+  const addTrack = (event) => {
+    props.onAdd(props.item)
+  }
+
   const renderAction = () => {
-    return (isAdded ? <AddCircleOutlineIcon /> : <RemoveCircleOutlineIcon />)
+    return props.isAdded ? <AddCircleOutlineIcon onClick={addTrack} /> : <RemoveCircleOutlineIcon />
   }
 
   return (
