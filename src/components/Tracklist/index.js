@@ -9,6 +9,7 @@ const Tracklist = (props) => {
             <Track
               isAdded={props.isAdded}
               onAdd={props.onAdd}
+              onRemove={props.onRemove}
               item={item}
               artist={item.artist}
               song={item.song}

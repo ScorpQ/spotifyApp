@@ -18,8 +18,16 @@ const Track = (props) => {
     props.onAdd(props.item)
   }
 
+  const removeTrack = () => {
+    props.onRemove(props.item)
+  }
+
   const renderAction = () => {
-    return props.isAdded ? <AddCircleOutlineIcon onClick={addTrack} /> : <RemoveCircleOutlineIcon />
+    return props.isAdded ? (
+      <AddCircleOutlineIcon onClick={addTrack} />
+    ) : (
+      <RemoveCircleOutlineIcon onClick={removeTrack} />
+    )
   }
 
   return (

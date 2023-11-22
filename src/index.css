@@ -1,6 +1,10 @@
 .App {
-  display: flex;
   text-align: center;
+}
+.App-body {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
 }
 
 body {

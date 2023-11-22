@@ -16,17 +16,21 @@ function App() {
   }
 
   // To test if data is coming correctly from SearchResult comp.
-  const handleChange = (item) => {
+  const handleAdd = (item) => {
     console.log(item)
     setFavTrack(() => [item])
+  }
+
+  const handleRemove = (item) => {
+    console.log(item)
   }
 
   return (
     <div className='App'>
       <SearchBar onChange={searchWord} />
-      <div className='body'>
-        <SearchResult onSearch={search} onAdd={handleChange} />
-        <Playlist onFavorite={favTrack} />
+      <div className='App-body'>
+        <SearchResult onSearch={search} onAdd={handleAdd} />
+        <Playlist onFavorite={favTrack} onRemove={handleRemove} />
       </div>
     </div>
   )
