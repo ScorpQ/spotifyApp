@@ -1,5 +1,11 @@
-const Tracklist = () => {
-  return <div className='Tracklist'></div>
+import Tracklist from '../Tracklist'
+
+const Playlist = (props) => {
+  return (
+    <div className='Playlist'>
+      <Tracklist tracks={props.onFavorite} isAdded={false} />
+    </div>
+  )
 }
 
-export default Tracklist
+export default Playlist

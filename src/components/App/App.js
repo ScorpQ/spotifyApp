@@ -3,11 +3,10 @@ import SearchBar from '../Searchbar'
 import Spotify from '../Services'
 import SearchResult from '../Searchresult/SearchResults'
 import Playlist from '../Playlist'
-import './App.css'
 
 function App() {
   const [search, setSearch] = useState()
-  const [favTrack, setFavTrack] = useState({})
+  const [favTrack, setFavTrack] = useState([])
 
   // It adds the data coming from SearchBar comp. to API the as a parameter. API result used as parameter with state setter func.
   const searchWord = async (term) => {
@@ -19,6 +18,7 @@ function App() {
   // To test if data is coming correctly from SearchResult comp.
   const handleChange = (item) => {
     console.log(item)
+    setFavTrack(() => [item])
   }
 
   return (
@@ -26,7 +26,7 @@ function App() {
       <SearchBar onChange={searchWord} />
       <div className='body'>
         <SearchResult onSearch={search} onAdd={handleChange} />
-        <Playlist />
+        <Playlist onFavorite={favTrack} />
       </div>
     </div>
   )

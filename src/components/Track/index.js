@@ -14,7 +14,7 @@ import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline'
 const Track = (props) => {
   const theme = useTheme()
 
-  const addTrack = (event) => {
+  const addTrack = () => {
     props.onAdd(props.item)
   }
 

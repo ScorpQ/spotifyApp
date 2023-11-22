@@ -7,14 +7,14 @@ const Tracklist = (props) => {
         props.tracks.map((item) => {
           return (
             <Track
-              isAdded={true}
-              item={item}
+              isAdded={props.isAdded}
               onAdd={props.onAdd}
+              item={item}
               artist={item.artist}
               song={item.song}
               image={item.image}
               album={item.album}
-              id={item.id}
+              key={item.id}
             />
           )
         })}
