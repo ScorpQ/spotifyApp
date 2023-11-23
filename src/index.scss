@@ -1,12 +1,4 @@
-.App {
-  text-align: center;
-}
-.App-body {
-  display: flex;
-  justify-content: center;
-  flex-direction: row;
-}
-
+@use 'components/App/App';
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
@@ -18,5 +10,3 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
-
-/*# sourceMappingURL=index.css.map */
