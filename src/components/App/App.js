@@ -24,7 +24,8 @@ function App() {
 
   // To test if data is coming correctly the Playlist comp.
   const handleRemove = (track) => {
-    setFavTrack(() => [])
+    let test = (element) => element.id !== track.id
+    setFavTrack((favTrack) => favTrack.filter(test))
   }
 
   return (
