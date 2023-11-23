@@ -16,13 +16,15 @@ function App() {
   }
 
   // To test if data is coming correctly from SearchResult comp.
-  const handleAdd = (item) => {
-    console.log(item)
-    setFavTrack(() => [item])
+  const handleAdd = (track) => {
+    console.log(track)
+    const test = (element) => element.id === track.id
+    setFavTrack((prev) => (!favTrack.some(test) ? [...prev, track] : [...prev]))
   }
 
-  const handleRemove = (item) => {
-    console.log(item)
+  // To test if data is coming correctly the Playlist comp.
+  const handleRemove = (track) => {
+    setFavTrack(() => [])
   }
 
   return (
