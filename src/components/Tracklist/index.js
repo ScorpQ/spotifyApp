@@ -1,25 +1,28 @@
+import { useState, useEffect } from 'react'
 import Track from '../Track'
+import Spotify from '../Services'
 
-const Tracklist = (props) => {
+const Tracklist = ({ playlistId }) => {
+  const [track, setTrack] = useState()
+
+  useEffect(() => {
+    const getTracks = async () => {
+      try {
+        const response = await Spotify.getTracks(playlistId)
+        console.log(response)
+        setTrack(response)
+      } catch (error) {
+        console.error('Error fetching data:', error)
+      }
+    }
+    getTracks()
+  }, [])
+
   return (
-    <div className='Tracklist'>
-      {props.tracks &&
-        props.tracks.map((item) => {
-          return (
-            <Track
-              isAdded={props.isAdded}
-              onAdd={props.onAdd}
-              onRemove={props.onRemove}
-              item={item}
-              artist={item.artist}
-              song={item.song}
-              image={item.image}
-              album={item.album}
-              key={item.id}
-            />
-          )
-        })}
-    </div>
+    track &&
+    track.map((item) => {
+      return <Track trackData={item} onSearch={false} />
+    })
   )
 }
 

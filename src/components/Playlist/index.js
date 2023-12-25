@@ -1,11 +1,43 @@
 import Tracklist from '../Tracklist'
+import { Group, Avatar, Text, Accordion } from '@mantine/core'
 
-const Playlist = (props) => {
+const Playlist = ({ data }) => {
+  const AccordionLabel = (data) => {
+    return (
+      <Group wrap='nowrap'>
+        {console.log(data)}
+        <Avatar src={data.image} radius='sm' h='150' w='150' />
+        <div>
+          <Text size='xl'>{data.name}</Text>
+          <Text size='lg' c='dimmed' fw={400}>
+            {data.description}
+          </Text>
+        </div>
+      </Group>
+    )
+  }
+
   return (
-    <div className='Playlist'>
-      <Tracklist tracks={props.onFavorite} isAdded={false} onRemove={props.onRemove} />
-    </div>
+    data &&
+    data.map((item) => {
+      return (
+        <Accordion my={10} chevronPosition='right' variant='contained'>
+          <Accordion.Item key={item.id} value={item.name}>
+            <Accordion.Control>
+              <AccordionLabel {...item} />
+            </Accordion.Control>
+            <Accordion.Panel>
+              <Tracklist playlistId={item.id} />
+            </Accordion.Panel>
+          </Accordion.Item>
+        </Accordion>
+      )
+    })
   )
 }
 
 export default Playlist
+
+{
+  /* <Tracklist tracks={props.onFavorite} isAdded={false} onRemove={props.onRemove} /> */
+}
