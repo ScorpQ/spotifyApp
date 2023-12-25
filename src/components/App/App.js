@@ -1,19 +1,33 @@
+// Client Imports
 import { useState, useEffect, useCallback } from 'react'
-import SearchBar from '../Searchbar'
 import Spotify from '../Services'
-import SearchResult from '../Searchresult/SearchResults'
 import Playlist from '../Playlist'
+import SearchModel from '../SearchModal'
+
+// Mantine Imports
+import { Box, Flex, Button } from '@mantine/core'
 
 function App() {
-  const [search, setSearch] = useState()
-  const [favTrack, setFavTrack] = useState([])
+  const [myPlaylist, setmMyPlaylist] = useState() // XXXX
+  const [favTrack, setFavTrack] = useState([]) // XXXX
 
-  // It adds the data coming from SearchBar comp. to API the as a parameter. API result used as parameter with state setter func.
-  const searchWord = async (term) => {
-    const searchResults = await Spotify.getSearch(term)
-    console.log(searchResults)
-    setSearch(searchResults)
+  const yetki = () => {
+    if (!localStorage.getItem('acces_token')) Spotify.redirectToPage()
   }
+
+  // Fetch data at first render
+  useEffect(() => {
+    const playlistDetails = async () => {
+      try {
+        const searchResults = await Spotify.getPlaylist()
+        setmMyPlaylist(searchResults)
+      } catch (error) {
+        console.error('Error fetching data:', error)
+      }
+    }
+
+    playlistDetails()
+  }, [])
 
   // To test if data is coming correctly from SearchResult comp.
   const handleAdd = (track) => {
@@ -29,13 +43,13 @@ function App() {
   }
 
   return (
-    <div className='App'>
-      <SearchBar onChange={searchWord} />
-      <div className='App-body'>
-        <SearchResult onSearch={search} onAdd={handleAdd} />
-        <Playlist onFavorite={favTrack} onRemove={handleRemove} />
-      </div>
-    </div>
+    <Flex align={'center'} direction={'column'}>
+      <SearchModel />
+      <Box w={1200}>
+        <Playlist data={myPlaylist} />
+      </Box>
+      <button onClick={yetki}>yetkilendir</button>
+    </Flex>
   )
 }
 
