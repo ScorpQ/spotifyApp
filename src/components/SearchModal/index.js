@@ -4,6 +4,7 @@ import Track from '../Track'
 import Spotify from '../Services'
 
 // Mantine Imports
+import { useForm } from '@mantine/form';
 import { useDisclosure } from '@mantine/hooks'
 import { Modal, Button, TextInput, Flex, Box, Divider, Text } from '@mantine/core'
 
@@ -14,8 +15,20 @@ const Search = ({ token }) => {
   const [playlistName, setPlaylistName] = useState(null)
   const [playlistDescrib, setPlaylistDescrib] = useState()
 
-  //Mantine Hook
+  // Mantine Hook
   const [opened, { open, close }] = useDisclosure(false)
+
+  // Validation config
+  const form = useForm({
+    initialValues: { name: '', email: '', age: 0 },
+
+    // Functions will be used to validate values at corresponding key
+    validate: {
+      name: (value) => (value.length < 2 ? 'Name must have at least 2 letters' : null),
+      email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
+      age: (value) => (value < 18 ? 'You must be at least 18 to register' : null),
+    },
+  });
 
   // It sends get request and it views search result according to search word.
   const listTracks = async (searchWord) => {
@@ -59,7 +72,7 @@ const Search = ({ token }) => {
               <Text fw={500} mx={'md'}>
                 Create Section
               </Text>
-              <Button variant='filled' color='teal' size='md' onClick={savePlaylist} mb={'md'} mx={'md'}>
+              <Button type='submit' variant='filled' color='teal' size='md' onClick={savePlaylist} mb={'md'} mx={'md'}>
                 Create Playlist
               </Button>
               <TextInput
