@@ -1,20 +1,34 @@
 // Client Imports
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect } from 'react'
 import Spotify from '../Services'
 import Playlist from '../Playlist'
 import SearchModel from '../SearchModal'
+import { useParams } from 'react-router-dom'
 
 // Mantine Imports
-import { Box, Flex, Button } from '@mantine/core'
+import { Box, Flex } from '@mantine/core'
 
 function App() {
+  const queryParameters = new URLSearchParams(window.location.search)
+  const type = queryParameters.get('code')
+  let token = ''
   const [myPlaylist, setmMyPlaylist] = useState() // XXXX
   const [favTrack, setFavTrack] = useState([]) // XXXX
 
-  const yetki = () => {
-    if (!localStorage.getItem('acces_token')) Spotify.redirectToPage()
+  const yetki = async () => {
+    Spotify.redirectToPage()
   }
+  /*
+  useEffect(() => {
+    const heral = async () => {
+      token = await Spotify.getTokenPCKE()
+      console.log(token)
+      console.log('type var')
+    }
 
+    type && heral()
+  }, [type])
+    */
   // Fetch data at first render
   useEffect(() => {
     const playlistDetails = async () => {
@@ -44,7 +58,7 @@ function App() {
 
   return (
     <Flex align={'center'} direction={'column'}>
-      <SearchModel />
+      <SearchModel tokenData={token} />
       <Box w={1200}>
         <Playlist data={myPlaylist} />
       </Box>

@@ -174,8 +174,6 @@ const Spotify = {
       console.log(`XXXXXXXXXXXXXXXXXXXXX`)
       return item.uri
     })
-    //console.log(trackList)
-    //console.log(token)
 
     try {
       const newPlaylist = await axios.post(

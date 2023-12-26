@@ -4,18 +4,24 @@ import Track from '../Track'
 import Spotify from '../Services'
 
 // Mantine Imports
+import { useForm } from '@mantine/form'
 import { useDisclosure } from '@mantine/hooks'
 import { Modal, Button, TextInput, Flex, Box, Divider, Text } from '@mantine/core'
 
-const Search = ({ token }) => {
+const Search = ({ tokenData }) => {
   const myRef = useRef(null) // It counts input length
   const [tracksData, setTracksData] = useState(null) // It holds track's data obtained as result of search
   const [createPlaylist, setCreatePlaylist] = useState([]) // It holds list of tracks selected from the search result
   const [playlistName, setPlaylistName] = useState(null)
   const [playlistDescrib, setPlaylistDescrib] = useState()
+  const [opened, { open, close }] = useDisclosure(false) //Mantine Hook
 
-  //Mantine Hook
-  const [opened, { open, close }] = useDisclosure(false)
+  // Input validation
+  const form = useForm({
+    validate: {
+      name: (value) => (value?.length == 0 ? 'Playlist ismi boş kalamaz' : null),
+    },
+  })
 
   // It sends get request and it views search result according to search word.
   const listTracks = async (searchWord) => {
@@ -53,42 +59,53 @@ const Search = ({ token }) => {
       </Button>
 
       <Modal opened={opened} onClose={close} title='Create Your Playlist'>
-        <Flex direction={'column'}>
-          {createPlaylist.length !== 0 && (
-            <>
-              <Text fw={500} mx={'md'}>
-                Create Section
-              </Text>
-              <Button variant='filled' color='teal' size='md' onClick={savePlaylist} mb={'md'} mx={'md'}>
-                Create Playlist
-              </Button>
-              <TextInput
-                onChange={({ target }) => {
-                  setPlaylistName(target.value)
-                  console.log(playlistName)
-                }}
-                mx={'md'}
-                ref={myRef}
-                size='lg'
-                radius='md'
-                placeholder='Type Playlist Name'
-              />
-              <TextInput
-                onChange={({ target }) => {
-                  setPlaylistDescrib(target.value)
-                  console.log(playlistDescrib)
-                }}
-                mt={'md'}
-                mx={'md'}
-                ref={myRef}
-                size='lg'
-                radius='md'
-                placeholder='Type Playlist Description'
-              />
-              <Divider my='md' />
-            </>
-          )}
-        </Flex>
+        <form onSubmit={form.onSubmit(console.log)}>
+          <Flex direction={'column'}>
+            {createPlaylist.length !== 0 && (
+              <>
+                <Text fw={500} mx={'md'}>
+                  Create Section
+                </Text>
+                <Button
+                  type='submit'
+                  variant='filled'
+                  color='teal'
+                  size='md'
+                  onClick={savePlaylist}
+                  mb={'md'}
+                  mx={'md'}
+                >
+                  Create Playlist
+                </Button>
+                <TextInput
+                  {...form.getInputProps('name')}
+                  onChange={({ target }) => {
+                    setPlaylistName(target.value)
+                    console.log(playlistName)
+                  }}
+                  mx={'md'}
+                  ref={myRef}
+                  size='lg'
+                  radius='md'
+                  placeholder='Type Playlist Name'
+                />
+                <TextInput
+                  onChange={({ target }) => {
+                    setPlaylistDescrib(target.value)
+                    console.log(playlistDescrib)
+                  }}
+                  mt={'md'}
+                  mx={'md'}
+                  ref={myRef}
+                  size='lg'
+                  radius='md'
+                  placeholder='Type Playlist Description'
+                />
+                <Divider my='md' />
+              </>
+            )}
+          </Flex>
+        </form>
         <Text fw={500} mx={'md'}>
           Search Section
         </Text>
