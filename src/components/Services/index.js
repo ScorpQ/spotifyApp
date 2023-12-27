@@ -166,7 +166,7 @@ const Spotify = {
   },
 
   // It creates playlist with the selected songs
-  createPlaylist: async (playlistName, playlistDescrib, trackList, token) => {
+  createPlaylist: async (playlistName, playlistDescrib, trackList, token, value) => {
     // extract each of track's uri
     trackList = trackList.map((item) => {
       console.log(`item name: ${item.name}`)
@@ -181,7 +181,7 @@ const Spotify = {
         {
           name: playlistName,
           description: playlistDescrib,
-          public: true,
+          public: value,
         },
         {
           headers: {
