@@ -6,8 +6,9 @@ import Spotify from '../Services'
 // Mantine Imports
 import { useForm } from '@mantine/form'
 import { useDisclosure } from '@mantine/hooks'
-import { Modal, Button, TextInput, Flex, Box, Divider, Text, RadioGroup, Radio } from '@mantine/core'
+import { Modal, Button, TextInput, Flex, Box, Divider, Text, RadioGroup, Radio, Group, Stack } from '@mantine/core'
 
+// GÜNCEL
 const Search = ({ onNewPlaylistReceived }) => {
   const myRef = useRef(null) // It counts input length
   const playlistNameRef = useRef(null)
@@ -33,6 +34,8 @@ const Search = ({ onNewPlaylistReceived }) => {
   // counter güncellenir. Böylece ancak 3. karakterden sonra get isteği atılır.
   const searchChange = async () => {
     const response = myRef.current.value.length > 3 ? await listTracks(myRef.current.value) : null
+    console.log(myRef.current.value.length)
+    console.log(myRef.current.value)
     setTracksData(response)
   }
 
@@ -50,7 +53,9 @@ const Search = ({ onNewPlaylistReceived }) => {
 
   const savePlaylist = async () => {
     const token = await Spotify.getTokenPCKE()
-    console.log(await Spotify.createPlaylist(playlistNameRef.current.value, playlistDescrib, createPlaylist, token))
+    console.log(
+      await Spotify.createPlaylist(playlistNameRef.current.value, playlistDescrib, createPlaylist, token, value)
+    )
     onNewPlaylistReceived(await Spotify.getPlaylist())
   }
 
@@ -63,11 +68,11 @@ const Search = ({ onNewPlaylistReceived }) => {
       <Modal opened={opened} onClose={close} title='Create Your Playlist'>
         <form onSubmit={form.onSubmit(console.log)}>
           {createPlaylist.length !== 0 && (
-            <Flex direction={'column'}>
+            <Stack direction={'column'} gap={'xs'}>
               <Text fw={500} mx={'md'}>
                 Create Section
               </Text>
-              <Button type='submit' variant='filled' color='teal' size='md' onClick={savePlaylist} mb={'md'} mx={'md'}>
+              <Button type='submit' variant='filled' color='teal' size='md' onClick={savePlaylist} mx={'md'}>
                 Create Playlist
               </Button>
               <TextInput
@@ -83,7 +88,6 @@ const Search = ({ onNewPlaylistReceived }) => {
                   setPlaylistDescrib(target.value)
                   console.log(playlistDescrib)
                 }}
-                mt={'md'}
                 mx={'md'}
                 ref={myRef}
                 size='lg'
@@ -91,11 +95,13 @@ const Search = ({ onNewPlaylistReceived }) => {
                 placeholder='Type Playlist Description'
               />
               <RadioGroup value={value} onChange={setValue} required>
-                <Radio value='true' label='public' />
-                <Radio value='false' label='private' />
+                <Group justify='center' gap='lg'>
+                  <Radio value='true' label='public' />
+                  <Radio value='false' label='private' />
+                </Group>
               </RadioGroup>
               <Divider my='md' />
-            </Flex>
+            </Stack>
           )}
         </form>
         <Text fw={500} mx={'md'}>

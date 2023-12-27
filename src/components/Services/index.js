@@ -10,6 +10,7 @@ const redirectUri = 'http://localhost:3000'
 const auth_token = Buffer.from(`${clientId}:${client_secret}`, 'utf-8').toString('base64')
 let globalToken = null
 let TOKEN = null
+
 const Spotify = {
   redirectToPage: async () => {
     // 1. Random String ve SHA256 Hash Oluşturma

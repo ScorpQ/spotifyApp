@@ -8,6 +8,7 @@ import SearchModel from '../SearchModal'
 import { Box, Flex } from '@mantine/core'
 
 function App() {
+  // GÜNCEL 
   const [myPlaylist, setmMyPlaylist] = useState() // XXXX
   const [favTrack, setFavTrack] = useState([]) // XXXX
 
