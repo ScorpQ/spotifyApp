@@ -4,11 +4,7 @@ import Track from '../Track'
 import Spotify from '../Services'
 
 // Mantine Imports
-<<<<<<< HEAD
 import { useForm } from '@mantine/form'
-=======
-import { useForm } from '@mantine/form';
->>>>>>> 7984dfa9c8af0a4543fb91e9a88e6d2ebdbf038d
 import { useDisclosure } from '@mantine/hooks'
 import { Modal, Button, TextInput, Flex, Box, Divider, Text, RadioGroup, Radio, Group, Stack } from '@mantine/core'
 
@@ -22,29 +18,14 @@ const Search = ({ onNewPlaylistReceived }) => {
   const [value, setValue] = useState('react')
   const [opened, { open, close }] = useDisclosure(false) //Mantine Hook
 
-<<<<<<< HEAD
   // Input validation
   const form = useForm({
     validate: {
       name: (value) => (!value.length ? 'Playlist ismi boş kalamaz' : null),
     },
   })
-=======
-  // Mantine Hook
-  const [opened, { open, close }] = useDisclosure(false)
->>>>>>> 7984dfa9c8af0a4543fb91e9a88e6d2ebdbf038d
 
-  // Validation config
-  const form = useForm({
-    initialValues: { name: '', email: '', age: 0 },
 
-    // Functions will be used to validate values at corresponding key
-    validate: {
-      name: (value) => (value.length < 2 ? 'Name must have at least 2 letters' : null),
-      email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
-      age: (value) => (value < 18 ? 'You must be at least 18 to register' : null),
-    },
-  });
 
   // It sends get request and it views search result according to search word.
   const listTracks = async (searchWord) => {
@@ -87,7 +68,6 @@ const Search = ({ onNewPlaylistReceived }) => {
       </Button>
 
       <Modal opened={opened} onClose={close} title='Create Your Playlist'>
-<<<<<<< HEAD
         <form onSubmit={form.onSubmit(console.log)}>
           {createPlaylist.length !== 0 && (
             <Stack direction={'column'} gap={'xs'}>
@@ -126,44 +106,6 @@ const Search = ({ onNewPlaylistReceived }) => {
             </Stack>
           )}
         </form>
-=======
-        <Flex direction={'column'}>
-          {createPlaylist.length !== 0 && (
-            <>
-              <Text fw={500} mx={'md'}>
-                Create Section
-              </Text>
-              <Button type='submit' variant='filled' color='teal' size='md' onClick={savePlaylist} mb={'md'} mx={'md'}>
-                Create Playlist
-              </Button>
-              <TextInput
-                onChange={({ target }) => {
-                  setPlaylistName(target.value)
-                  console.log(playlistName)
-                }}
-                mx={'md'}
-                ref={myRef}
-                size='lg'
-                radius='md'
-                placeholder='Type Playlist Name'
-              />
-              <TextInput
-                onChange={({ target }) => {
-                  setPlaylistDescrib(target.value)
-                  console.log(playlistDescrib)
-                }}
-                mt={'md'}
-                mx={'md'}
-                ref={myRef}
-                size='lg'
-                radius='md'
-                placeholder='Type Playlist Description'
-              />
-              <Divider my='md' />
-            </>
-          )}
-        </Flex>
->>>>>>> 7984dfa9c8af0a4543fb91e9a88e6d2ebdbf038d
         <Text fw={500} mx={'md'}>
           Search Section
         </Text>
