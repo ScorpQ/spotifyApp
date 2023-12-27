@@ -15,7 +15,7 @@ const Search = ({ onNewPlaylistReceived }) => {
   const [tracksData, setTracksData] = useState(null) // It holds track's data obtained as result of search
   const [createPlaylist, setCreatePlaylist] = useState([]) // It holds list of tracks selected from the search result
   const [playlistDescrib, setPlaylistDescrib] = useState()
-  const [value, setValue] = useState('react')
+  const [value, setValue] = useState('react') // It holds Public/Private configs.
   const [opened, { open, close }] = useDisclosure(false) //Mantine Hook
 
   // Input validation
@@ -25,8 +25,6 @@ const Search = ({ onNewPlaylistReceived }) => {
     },
   })
 
-
-
   // It sends get request and it views search result according to search word.
   const listTracks = async (searchWord) => {
     return await Spotify.getSearchResult(searchWord)
@@ -35,9 +33,9 @@ const Search = ({ onNewPlaylistReceived }) => {
   // if içerisinde inputa veri mi eklendi yoksa silindi mi ona bakılır. Bu belirlemeye göre useRef ile tutulan
   // counter güncellenir. Böylece ancak 3. karakterden sonra get isteği atılır.
   const searchChange = async () => {
-    const response = myRef.current.value.length > 3 ? await listTracks(myRef.current.value) : null
-    console.log(myRef.current.value.length)
-    console.log(myRef.current.value)
+    const response = myRef?.current?.value.length > 3 ? await listTracks(myRef.current.value) : null
+    console.log(myRef?.current?.value.length)
+    console.log(myRef?.current?.value)
     setTracksData(response)
   }
 
@@ -54,9 +52,15 @@ const Search = ({ onNewPlaylistReceived }) => {
   }
 
   const savePlaylist = async () => {
-    const token = await Spotify.getTokenPCKE()
+    Spotify.PCKETOKEN = !Spotify.PCKETOKEN ? await Spotify.getTokenPCKE() : Spotify.PCKETOKEN
     console.log(
-      await Spotify.createPlaylist(playlistNameRef.current.value, playlistDescrib, createPlaylist, token, value)
+      await Spotify.createPlaylist(
+        playlistNameRef.current.value,
+        playlistDescrib,
+        createPlaylist,
+        Spotify.PCKETOKEN,
+        value
+      )
     )
     onNewPlaylistReceived(await Spotify.getPlaylist())
   }

@@ -8,10 +8,11 @@ const scope = 'playlist-modify-public playlist-modify-private'
 const authUrl = new URL('https://accounts.spotify.com/authorize')
 const redirectUri = 'http://localhost:3000'
 const auth_token = Buffer.from(`${clientId}:${client_secret}`, 'utf-8').toString('base64')
-let globalToken = null
-let TOKEN = null
 
 const Spotify = {
+  CredentialTOKEN: null,
+  PCKETOKEN: null,
+
   redirectToPage: async () => {
     // 1. Random String ve SHA256 Hash Oluşturma
     const generateRandomString = (length) => {
@@ -106,13 +107,13 @@ const Spotify = {
 
   // Triggered while search something
   getSearchResult: async (search) => {
-    if (!TOKEN) {
-      TOKEN = Spotify.getTokenCredential()
+    if (!Spotify.CredentialTOKEN) {
+      Spotify.CredentialTOKEN = Spotify.getTokenCredential()
     }
     try {
       const response = await axios.get(`https://api.spotify.com/v1/search?q=${search}&type=track`, {
         headers: {
-          Authorization: `Bearer ${TOKEN}`,
+          Authorization: `Bearer ${Spotify.CredentialTOKEN}`,
         },
       })
       return response
@@ -123,13 +124,13 @@ const Spotify = {
 
   // Gets all playlist
   getPlaylist: async () => {
-    if (!TOKEN) {
-      TOKEN = await Spotify.getTokenCredential()
+    if (!Spotify.CredentialTOKEN) {
+      Spotify.CredentialTOKEN = await Spotify.getTokenCredential()
     }
     try {
       const response = await axios.get(`https://api.spotify.com/v1/users/${user_id}/playlists`, {
         headers: {
-          Authorization: `Bearer ${TOKEN}`,
+          Authorization: `Bearer ${Spotify.CredentialTOKEN}`,
         },
       })
       console.log(response)
@@ -146,13 +147,13 @@ const Spotify = {
 
   // Get track clickecd playlist
   getTracks: async (playlistID) => {
-    if (!TOKEN) {
-      TOKEN = await Spotify.getTokenCredential()
+    if (!Spotify.CredentialTOKEN) {
+      Spotify.CredentialTOKEN = await Spotify.getTokenCredential()
     }
     try {
       const response = await axios.get(`https://api.spotify.com/v1/playlists/${playlistID}/tracks?limit=3`, {
         headers: {
-          Authorization: `Bearer ${TOKEN}`,
+          Authorization: `Bearer ${Spotify.CredentialTOKEN}`,
         },
       })
       return response.data.items.map((item) => ({
@@ -170,9 +171,11 @@ const Spotify = {
   createPlaylist: async (playlistName, playlistDescrib, trackList, token, value) => {
     // extract each of track's uri
     trackList = trackList.map((item) => {
+      /*
       console.log(`item name: ${item.name}`)
       console.log(`item uri: ${item.uri}`)
       console.log(`XXXXXXXXXXXXXXXXXXXXX`)
+      */
       return item.uri
     })
 

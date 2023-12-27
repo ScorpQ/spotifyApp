@@ -5,7 +5,6 @@ const Playlist = ({ data }) => {
   const AccordionLabel = (data) => {
     return (
       <Group wrap='nowrap'>
-        {console.log(data)}
         <Avatar src={data.image} radius='sm' h='150' w='150' />
         <div>
           <Text size='xl'>{data.name}</Text>
