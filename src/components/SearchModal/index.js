@@ -95,7 +95,6 @@ const Search = ({ onNewPlaylistReceived }) => {
                   console.log(playlistDescrib)
                 }}
                 mx={'md'}
-                ref={myRef}
                 size='lg'
                 radius='md'
                 placeholder='Type Playlist Description'
@@ -123,7 +122,7 @@ const Search = ({ onNewPlaylistReceived }) => {
           onChange={searchChange}
         />
         <Flex direction={'row'} justify={'space-around'}>
-          {tracksData?.data?.tracks?.items?.length > 0 && (
+          {tracksData && (
             <Box>
               {tracksData.data.tracks.items.map((item) => {
                 return <Track trackData={item} onSearch={true} isAdded={true} onAdd={addToList} />
