@@ -8,7 +8,7 @@ import SearchModel from '../SearchModal'
 import { Box, Flex } from '@mantine/core'
 
 function App() {
-  // GÜNCEL 
+  // GÜNCEL
   const [myPlaylist, setmMyPlaylist] = useState() // XXXX
   const [favTrack, setFavTrack] = useState([]) // XXXX
 
@@ -17,6 +17,15 @@ function App() {
   }
 
   useEffect(() => {
+    // Burada bence parametreolan code var mı yok mu diye kontrol et böylece redirect yap...
+    // Veya cookie'de
+    const firstAutho = async () => {
+      if (!document.cookie.split(';').find((eleman) => eleman.includes('redirect'))) {
+        Spotify.redirectToPage()
+        document.cookie = `redirect=true;`
+      }
+    }
+
     const playlistDetails = async () => {
       try {
         const searchResults = await Spotify.getPlaylist()
@@ -26,6 +35,8 @@ function App() {
       }
     }
 
+    // !getCookie(code) ? Spotify.redirectToPage() : console.log("Cookie var")
+    firstAutho()
     playlistDetails()
   }, [])
 

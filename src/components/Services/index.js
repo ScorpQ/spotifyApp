@@ -58,7 +58,7 @@ const Spotify = {
     window.location.href = authUrl.toString()
   },
 
-  // get acces token via PCKE
+  // get acces token via PCKE  /..1 kere almamız yetiyor gibi../
   getTokenPCKE: async () => {
     const urlParams = new URLSearchParams(window.location.search)
     let code = urlParams.get('code')
@@ -78,7 +78,8 @@ const Spotify = {
           },
         }
       )
-      localStorage.setItem('access_token', response.data.access_token)
+      //localStorage.setItem('access_token', response.data.access_token)
+      document.cookie = `token=${response.data.access_token} expires=${Date()};`
       return response.data.access_token
     } catch (error) {
       console.log('getTokenPCKE alınamıyor: ' + error.message)
@@ -133,7 +134,6 @@ const Spotify = {
           Authorization: `Bearer ${Spotify.CredentialTOKEN}`,
         },
       })
-      console.log(response)
       return response.data.items.map((playlist) => ({
         id: playlist.id,
         name: playlist.name,
@@ -178,7 +178,6 @@ const Spotify = {
       */
       return item.uri
     })
-
     try {
       const newPlaylist = await axios.post(
         `https://api.spotify.com/v1/users/${user_id}/playlists`,

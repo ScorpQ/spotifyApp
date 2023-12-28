@@ -37,6 +37,7 @@ const Search = ({ onNewPlaylistReceived }) => {
     console.log(myRef?.current?.value.length)
     console.log(myRef?.current?.value)
     setTracksData(response)
+    console.log(Spotify.PCKETOKEN)
   }
 
   const addToList = (track) => {
@@ -52,7 +53,21 @@ const Search = ({ onNewPlaylistReceived }) => {
   }
 
   const savePlaylist = async () => {
-    Spotify.PCKETOKEN = !Spotify.PCKETOKEN ? await Spotify.getTokenPCKE() : Spotify.PCKETOKEN
+    console.log(Spotify.PCKETOKEN)
+
+    // ****  Bunu Cookie yazıp kontrol ettir
+    //Spotify.PCKETOKEN = !Spotify.PCKETOKEN ? await Spotify.getTokenPCKE() : Spotify.PCKETOKEN
+    // Hata veriyor olmasının sebebi sen sayfayı tekrar açınca yeniden token istiyor.
+    // Ve senin önceden setlediğin Spotify.TOKEN setleniyor çünkü ilk kod tekrar çalışıyor.
+    // ****  Bunu Cookie yazıp kontrol ettir
+
+    if (document.cookie.split(';').find((element) => element.includes('token'))) {
+      Spotify.PCKETOKEN = document.cookie.split(';').find((element) => element.includes('token'))
+    } else {
+      document.cookie = `token=${await Spotify.PCKETOKEN()}`
+      Spotify.PCKETOKEN = 
+    }
+    console.log(Spotify.PCKETOKEN)
     console.log(
       await Spotify.createPlaylist(
         playlistNameRef.current.value,
