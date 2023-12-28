@@ -1,0 +1,6 @@
+Redirect cookie'si silinirse tekrardan redirect edeceği için otomatik olarak code_verifier çalışacak
+-code_verifier ile URL kod oluştururlur
+
+- Token expire olursa / eski code_verifier ve eski code ile yeni TOKEN alınabilir mi????
+- Hayır ise yeniden Redirect şart ( Ama gerçekten sayfayı yönlendirmeye gerek var mı? Oluşturulan sayfa'da kod
+code hazır alınabiliyor mu?)

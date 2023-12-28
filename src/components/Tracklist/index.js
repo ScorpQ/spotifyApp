@@ -9,7 +9,6 @@ const Tracklist = ({ playlistId }) => {
     const getTracks = async () => {
       try {
         const response = await Spotify.getTracks(playlistId)
-        console.log(response)
         setTrack(response)
       } catch (error) {
         console.error('Error fetching data:', error)

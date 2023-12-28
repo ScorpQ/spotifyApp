@@ -82,7 +82,8 @@ const Spotify = {
       document.cookie = `token=${response.data.access_token} expires=${Date()};`
       return response.data.access_token
     } catch (error) {
-      console.log('getTokenPCKE alınamıyor: ' + error.message)
+      // YENİDEN TOKEN AL
+      Spotify.redirectToPage()
     }
   },
 
@@ -210,7 +211,10 @@ const Spotify = {
 
       return response
     } catch (error) {
+      // When token gets expired error
+      document.cookie = 'token= ;'
       console.error("Plasylist'e item ekleme:" + error.message)
+      Spotify.redirectToPage()
     }
   },
 }
