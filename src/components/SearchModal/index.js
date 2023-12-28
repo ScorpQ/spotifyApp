@@ -49,17 +49,30 @@ const Search = ({ onNewPlaylistReceived }) => {
     )
   }
 
+  // TOKEN WORK
   const savePlaylist = async () => {
-    document.cookie = 'token=ehe;'
-    console.log(document.cookie.split(';').find((element) => element.includes('token')))
-    /*
-    if (document.cookie.split(';').find((element) => element.includes('token'))) {
-      Spotify.PCKETOKEN = document.cookie.split(';').find((element) => element.includes('token'))
-    } else {
-      document.cookie = `token=${await Spotify.PCKETOKEN()}`
-      Spotify.PCKETOKEN
+    if (
+      // Token Check
+      !document.cookie
+        .split(';')
+        .find((element) => element.includes('token'))
+        ?.slice('token'.length + 2)
+    ) {
+      document.cookie = `token=${await Spotify.getTokenPCKE()}`
     }
-    */
+    console.log(
+      await Spotify.createPlaylist(
+        playlistNameRef.current.value,
+        playlistDescrib,
+        createPlaylist,
+        document.cookie
+          .split(';')
+          .find((element) => element.includes('token'))
+          ?.slice('token'.length + 2),
+        value
+      )
+    )
+    onNewPlaylistReceived(await Spotify.getPlaylist())
   }
 
   return (

@@ -58,7 +58,7 @@ const Spotify = {
     window.location.href = authUrl.toString()
   },
 
-  // get acces token via PCKE  /..1 kere almamız yetiyor gibi../
+  // get acces token via PCKE  1 kere almamız yetiyor
   getTokenPCKE: async () => {
     const urlParams = new URLSearchParams(window.location.search)
     let code = urlParams.get('code')

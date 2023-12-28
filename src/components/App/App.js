@@ -19,7 +19,7 @@ function App() {
   useEffect(() => {
     // Burada bence parametreolan code var mı yok mu diye kontrol et böylece redirect yap...
     // Veya cookie'de
-    const firstAutho = async () => {
+    const initalActions = async () => {
       if (!document.cookie.split(';').find((eleman) => eleman.includes('redirect'))) {
         Spotify.redirectToPage()
         document.cookie = `redirect=true;`
@@ -36,7 +36,7 @@ function App() {
     }
 
     // !getCookie(code) ? Spotify.redirectToPage() : console.log("Cookie var")
-    firstAutho()
+    initalActions()
     playlistDetails()
   }, [])
 
