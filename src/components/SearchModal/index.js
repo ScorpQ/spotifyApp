@@ -21,7 +21,7 @@ const Search = ({ onNewPlaylistReceived }) => {
   // Input validation
   const form = useForm({
     validate: {
-      name: (value) => (!value.length ? 'Playlist ismi boş kalamaz' : null),
+      name: (value) => (!value?.length ? 'Playlist ismi boş kalamaz' : null),
     },
   })
 
@@ -34,10 +34,7 @@ const Search = ({ onNewPlaylistReceived }) => {
   // counter güncellenir. Böylece ancak 3. karakterden sonra get isteği atılır.
   const searchChange = async () => {
     const response = myRef?.current?.value.length > 3 ? await listTracks(myRef.current.value) : null
-    console.log(myRef?.current?.value.length)
-    console.log(myRef?.current?.value)
     setTracksData(response)
-    console.log(Spotify.PCKETOKEN)
   }
 
   const addToList = (track) => {
@@ -53,31 +50,16 @@ const Search = ({ onNewPlaylistReceived }) => {
   }
 
   const savePlaylist = async () => {
-    console.log(Spotify.PCKETOKEN)
-
-    // ****  Bunu Cookie yazıp kontrol ettir
-    //Spotify.PCKETOKEN = !Spotify.PCKETOKEN ? await Spotify.getTokenPCKE() : Spotify.PCKETOKEN
-    // Hata veriyor olmasının sebebi sen sayfayı tekrar açınca yeniden token istiyor.
-    // Ve senin önceden setlediğin Spotify.TOKEN setleniyor çünkü ilk kod tekrar çalışıyor.
-    // ****  Bunu Cookie yazıp kontrol ettir
-
+    document.cookie = 'token=ehe;'
+    console.log(document.cookie.split(';').find((element) => element.includes('token')))
+    /*
     if (document.cookie.split(';').find((element) => element.includes('token'))) {
       Spotify.PCKETOKEN = document.cookie.split(';').find((element) => element.includes('token'))
     } else {
       document.cookie = `token=${await Spotify.PCKETOKEN()}`
-      Spotify.PCKETOKEN = 
+      Spotify.PCKETOKEN
     }
-    console.log(Spotify.PCKETOKEN)
-    console.log(
-      await Spotify.createPlaylist(
-        playlistNameRef.current.value,
-        playlistDescrib,
-        createPlaylist,
-        Spotify.PCKETOKEN,
-        value
-      )
-    )
-    onNewPlaylistReceived(await Spotify.getPlaylist())
+    */
   }
 
   return (
