@@ -77,9 +77,7 @@ const Search = ({ onNewPlaylistReceived }) => {
 
   return (
     <>
-      <Button my={10} onClick={open}>
-        Create Playlist
-      </Button>
+      <Button onClick={open}>Create Playlist</Button>
 
       <Modal opened={opened} onClose={close} title='Create Your Playlist'>
         <form onSubmit={form.onSubmit(console.log)}>

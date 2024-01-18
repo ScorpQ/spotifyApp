@@ -5,16 +5,13 @@ import Playlist from '../Playlist'
 import SearchModel from '../SearchModal'
 
 // Mantine Imports
-import { Box, Flex } from '@mantine/core'
+import { AppShell, Burger, Box, Center, ScrollArea } from '@mantine/core'
+import { useDisclosure } from '@mantine/hooks'
 
 function App() {
-  // GÜNCEL
   const [myPlaylist, setmMyPlaylist] = useState() // XXXX
   const [favTrack, setFavTrack] = useState([]) // XXXX
-
-  const yetki = async () => {
-    Spotify.redirectToPage()
-  }
+  const [opened, { toggle }] = useDisclosure() // Mantine Hook
 
   useEffect(() => {
     const initalActions = async () => {
@@ -33,7 +30,6 @@ function App() {
       }
     }
 
-    // !getCookie(code) ? Spotify.redirectToPage() : console.log("Cookie var")
     initalActions()
     playlistDetails()
   }, [])
@@ -52,13 +48,30 @@ function App() {
   }
 
   return (
-    <Flex align={'center'} direction={'column'}>
-      <SearchModel onNewPlaylistReceived={setmMyPlaylist} />
-      <Box w={1200}>
-        <Playlist data={myPlaylist} />
-      </Box>
-      <button onClick={yetki}>yetkilendir</button>
-    </Flex>
+    <AppShell
+      header={{ height: 60 }}
+      navbar={{
+        width: 350,
+        breakpoint: 'sm',
+        collapsed: { mobile: !opened },
+      }}
+      padding='md'
+    >
+      <AppShell.Header bg='var(--mantine-color-gray-light)'>
+        <Box pos='relative'>
+          <Burger pos='absolute' top='13px' left='10px' opened={opened} onClick={toggle} hiddenFrom='sm' size='sm' />
+          <Center pos='absolute' top='10px' left='calc(50% - 59px)'>
+            <SearchModel onNewPlaylistReceived={setmMyPlaylist} />
+          </Center>
+        </Box>
+      </AppShell.Header>
+      <AppShell.Navbar p='sm'>
+        <ScrollArea h={'100vh'} scrollbarSize={2} scrollHideDelay={0} pr='10'>
+          <Playlist data={myPlaylist} />
+        </ScrollArea>
+      </AppShell.Navbar>
+      <AppShell.Main>SELECTED PLAYLIST DATA</AppShell.Main>
+    </AppShell>
   )
 }
 
